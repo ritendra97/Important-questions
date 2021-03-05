@@ -1,0 +1,50 @@
+//Long Pressed Name
+class Solution {
+    public boolean isLongPressedName(String name, String typed) 
+    {
+        int i=1;
+        int j=1;
+        int m= name.length();
+        int n= typed.length();
+        if(n==1 && m==1)
+        {
+            if(name.charAt(0)!=typed.charAt(0))
+                return false;
+            else
+                return true;
+        }
+        while(i<m && j<n)
+        {
+            if(i<m && name.charAt(i)!=typed.charAt(j))
+            {
+                if(typed.charAt(j-1)!=typed.charAt(j))
+                    return false;
+                else
+                    j++;
+            }
+            else if(i<m && name.charAt(i)==typed.charAt(j))
+            {
+                i++;
+                j++;
+            }
+            
+        }
+        // you did mistake here please take care of this if i don't reach to it's length
+        // and j length got terminated than u have to check this below conditoin.
+        if(i!=m)
+        { 
+           return false; 
+        }
+        else
+        {
+           while(j<n)
+           {
+              if(typed.charAt(j-1)!=typed.charAt(j))
+                    return false;
+              j++;
+           }
+        }
+        
+        return true;
+     }
+}
