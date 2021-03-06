@@ -1,0 +1,72 @@
+import java.util.*;
+
+public class Solution 
+{
+	public void swap(char temp_digit[],int i,int j)
+    {
+        char temp = temp_digit[i];
+        temp_digit[i]=temp_digit[j];
+        temp_digit[j]=temp;
+    }
+    public int nextGreaterElementUtil(String s)
+    {
+    	if(s.length()==2)
+    	{
+    		String a="";
+    		char temp_digit1[] = s.toCharArray();
+    		swap(temp_digit1,0,1);
+    		for(char c:temp_digit1)
+    		{
+    			a+=c;
+    		}
+    		if(Integer.valueOf(a)>Integer.valueOf(s))
+    			return Integer.valueOf(a);
+    		else
+    			return -1;
+    	}
+        char temp_digit[] = s.toCharArray();
+        String ans="";
+        int i=temp_digit.length-1;
+        
+        for (; i > 0; i--)  
+        { 
+            if (temp_digit[i] > temp_digit[i - 1]) { 
+                break; 
+            } 
+        } 
+        if(i==1)
+            return -1;
+        else
+        {
+            int min=i;
+            int index = i-1;
+            int j=i+1;
+            for(;j<temp_digit.length;j++)
+            {
+                if(temp_digit[j]>temp_digit[index] && temp_digit[j]<temp_digit[i])
+                {
+                    min=j;
+                }
+            }
+            
+            swap(temp_digit,index,min);
+            
+            Arrays.sort(temp_digit,i,s.length());
+            
+            for(int p=0;p<temp_digit.length;p++)
+            {
+                ans+=temp_digit[p];
+            }
+        }
+        return Integer.valueOf(ans);
+    }
+    public int nextGreaterElement(int n) 
+    {   
+        return nextGreaterElementUtil(String.valueOf(n));
+    }
+	public static void main(String[] args) 
+	{
+		Solution s = new Solution();
+		System.out.println(s.nextGreaterElement(101));
+	}
+}
