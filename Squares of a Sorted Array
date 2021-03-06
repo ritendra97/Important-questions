@@ -1,0 +1,31 @@
+//Squares of a Sorted Array
+you have to solve it in O(n) complexity
+
+// please make sure the case when we will get both i and j same value.
+
+class Solution {
+    public int[] sortedSquares(int[] nums) 
+    {
+        int ans[] = new int[nums.length];
+        int i=0;
+        int j=nums.length-1;
+        int k = nums.length-1;
+        while(i<nums.length && j>=0 && k>=0)
+        {
+            int start = nums[i]*nums[i];
+            int end = nums[j]*nums[j];
+            if(start>=end)
+            {
+                ans[k]=start;
+                i++;
+            }
+            else if(start<end)
+            {
+                ans[k]=end;
+                j--;
+            }
+            k--;
+        }
+        return ans;
+    }
+}
