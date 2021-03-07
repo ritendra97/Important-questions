@@ -1,4 +1,5 @@
 //Maximum Subarray
+// it is also based on prefix and suffix array
 //O(n2)
 simply take two loop and maintain curr_sum and max_sum;
 
