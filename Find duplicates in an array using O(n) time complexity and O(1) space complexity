@@ -1,0 +1,26 @@
+//Find duplicates in an array using O(n) time complexity and O(1) space complexity
+import java.util.*;
+
+public class BinarySearch 
+{
+	 public static void countelement(int arr[],int n)
+	    {
+	        for(int i=0;i<n;i++)
+	        {
+	            arr[arr[i]%n]+=n;
+	        }
+	        for(int i=0;i<n;i++)
+	        {
+	            if(arr[i]/n>1)
+	            {
+	                System.out.println(i+"-> "+arr[i]/n);
+	            }
+	        }
+	    }
+	    public static void main(String[] args)
+	    {
+	        int arr[]={2,7,1,4,1,7,8,2,8};
+	        int n = arr.length;
+	        countelement(arr,n);
+	    }
+}
