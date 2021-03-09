@@ -1,0 +1,36 @@
+//Partition Labels
+class Solution {
+    public List<Integer> partitionLabels(String S) 
+    {
+        int count=0;
+        ArrayList<Integer> ans = new ArrayList<Integer>();
+        HashMap<Character,Integer> map  = new HashMap<Character,Integer>();
+        for(int i=0;i<S.length();i++)
+        {
+            char ch = S.charAt(i);
+            if(map.containsKey(ch))
+            {
+               if(map.get(ch)<i)
+                   map.put(ch,i); 
+            }
+            else
+                map.put(ch,i);
+        }
+        
+        int max_count=Integer.MIN_VALUE;
+        
+        for(int j=0;j<S.length();j++)
+        {
+            char ch = S.charAt(j);
+            if(map.get(ch)>max_count)
+                max_count=map.get(ch);
+            count++;
+            if(j==max_count)
+            {
+                ans.add(count);
+                count=0;
+            }
+        }
+        return ans;
+    }
+}
