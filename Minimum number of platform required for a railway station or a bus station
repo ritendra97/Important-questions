@@ -1,0 +1,39 @@
+//Minimum number of platform required for a railway station or a bus station
+// this is O(nlogn) solution u can optimuzed it by using hashmap
+import java.util.*;
+public class Solution 
+{
+	
+	public static int findPlatform(int arr[], int dep[],int n)
+    {
+		int curr_need=1;
+		int overall_need=1;
+		Arrays.sort(arr);
+		Arrays.sort(dep);
+		int i=1;
+		int j=0;
+		while(i<arr.length && j<dep.length)
+		{
+			if(arr[i]<=dep[j])
+			{
+				i++;
+				curr_need+=1;
+			}
+			else if(arr[i]>dep[j])
+			{
+				j++;
+				curr_need--;
+			}
+			if(overall_need<curr_need)
+				overall_need=curr_need;
+		}
+		return overall_need;
+    }
+	public static void main(String[] args) 
+	{
+		int arr[] = { 900, 940, 950, 1100, 1500, 1800 };
+        int dep[] = { 910, 1200, 1120, 1130, 1900, 2000 };
+        int n = 6;
+        System.out.println("Minimum Number of Platforms Required = "+ findPlatform(arr, dep, n));
+	}
+}
