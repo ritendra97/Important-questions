@@ -1,0 +1,39 @@
+class Solution 
+{
+    public int maxProduct(int[] nums) 
+    {
+        int n = nums.length;
+        int c=1;
+        int o=Integer.MIN_VALUE;
+        boolean flag = false;
+        for(int i=0;i<n;i++)
+        {
+            if(nums[i]==0)
+            {
+                flag = true;
+                c=1;
+                continue;
+            }
+            c=c*nums[i];
+            if(o<c)
+                o=c;
+        }
+        c=1;
+        flag = false;
+        for(int i=n-1;i>=0;i--)
+        {
+            if(nums[i]==0)
+            {
+                flag=true;
+                c=1;
+                continue;
+            }
+            c=c*nums[i];
+            if(o<c)
+                o=c;
+        }
+        if(flag==true)
+            return Math.max(o,0);
+        return o;
+    }
+}
