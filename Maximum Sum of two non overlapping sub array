@@ -1,0 +1,38 @@
+//Maximum Sum of two non overlapping sub array
+import java.util.*;
+public class Solution 
+{
+	public static int maxSumTwoNoOverlap(int[] A, int L, int M) 
+	{
+		int n = A.length;
+		int prefix_sum[]= new int[n];
+		
+		prefix_sum[0] = A[0];
+		
+		for(int i=1;i<n;i++)
+		{
+			prefix_sum[i]=A[i]+prefix_sum[i-1];
+		}
+		
+		int result = A[L+M-1];
+		int lmax = A[L-1];
+		int Mmax = A[M-1];
+		
+		for(int i=L+M;i<n;i++)
+		{
+			Mmax = Math.max(Mmax,(prefix_sum[i-L]-prefix_sum[i-L-M]));
+			result = Math.max(result,prefix_sum[i]-prefix_sum[i-L]+Mmax);
+			
+			lmax = Math.max(lmax,(prefix_sum[i-M]-prefix_sum[i-L-M]));
+			result = Math.max(result,prefix_sum[i]-prefix_sum[i-M]+lmax);
+		}
+		return result;
+	}
+	public static void main(String[] args) 
+	{
+		int A[] = {3,8,1,3,2,1,8,9,0};
+		int L=3;
+		int M=2;
+		System.out.println(maxSumTwoNoOverlap(A,L,M));
+	}
+}
