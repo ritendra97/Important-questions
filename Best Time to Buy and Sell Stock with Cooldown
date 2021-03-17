@@ -1,0 +1,18 @@
+//Best Time to Buy and Sell Stock with Cooldown
+class Solution 
+{
+    public int maxProfit(int[] prices) 
+    {
+        int t_ik0 = 0;
+        int t_ik1 = Integer.MIN_VALUE;
+        int pre_temp = 0;
+        for(int price: prices)
+        {
+            int next_temp = t_ik0;
+            t_ik0 = Math.max(t_ik0,t_ik1+price);
+            t_ik1 = Math.max(t_ik1,pre_temp-price);
+            pre_temp = next_temp;
+        }
+        return t_ik0;
+    }
+}
