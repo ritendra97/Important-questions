@@ -27,3 +27,43 @@ class Solution {
         return max_sum;
     }
 }
+// When they asked length
+
+public class Solution 
+{
+	public static int maxSubArray(int[] nums) 
+    {
+        if(nums.length==1)
+            return nums[0];
+        int max_sum=nums[0];
+        int curr_sum=nums[0];
+        int n = nums.length;
+        int start=0;
+        int end=0;
+        for(int i=1;i<n;i++)
+        {
+            if(curr_sum<0)
+            {
+            	start = i;
+            	end =i;
+                curr_sum=nums[i];
+            }
+            else
+            {
+                curr_sum+=nums[i];
+            }
+            if(max_sum<curr_sum)
+            {
+            	max_sum=curr_sum;
+            	end=i;
+            }
+        }
+        return end-start+1;
+    }
+	public static void main(String[] args) 
+	{
+		int arr[] = {-2,-3,-4,-1,-2,5,7};
+		int n=arr.length;
+		System.out.println(maxSubArray(arr));
+	}
+}
