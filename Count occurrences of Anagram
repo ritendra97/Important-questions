@@ -1,0 +1,66 @@
+//Count occurrences of Anagram
+import java.util.*;
+public class StringPractice 
+{
+	static int count =0;
+	public static boolean compare(HashMap<Character,Integer> texts,HashMap<Character,Integer> pattern)
+	{
+		for(char c:pattern.keySet())
+		{
+			if(texts.getOrDefault(c,0)!=pattern.get(c))
+				return false;
+		}
+		return true;
+	}
+	public static int countOccurrencesAnagrams(String text, String pat)
+	{
+		HashMap<Character,Integer> texts = new HashMap<Character,Integer>();
+		HashMap<Character,Integer> pattern = new HashMap<Character,Integer>();
+		
+		for(int i=0;i<pat.length();i++)
+		{
+			char ch = pat.charAt(i);
+			pattern.put(ch,pattern.getOrDefault(ch,0)+1);
+		}
+		
+		for(int i=0;i<pat.length();i++)
+		{
+			char ch = text.charAt(i);
+			texts.put(ch,texts.getOrDefault(ch,0)+1);
+		}
+		
+		int j=pat.length();
+		
+		while(j<text.length())
+		{
+			
+			if(compare(texts,pattern)==true)
+				count++;
+			
+			char ch = text.charAt(j);
+			texts.put(ch, texts.getOrDefault(ch, 0)+1);
+			
+			ch = text.charAt(j-pat.length());
+			if(texts.get(ch)==1)
+				texts.remove(ch);
+			else
+			{
+				texts.put(ch, texts.get(ch)-1);
+			}
+			
+			j++;
+		}
+		
+		if(compare(texts,pattern)==true)
+			count++;
+		return count;
+	}
+	public static void main(String[] args) 
+	{
+		String text = "forxxorfxdofr";
+		String pat ="for";
+		
+		
+		System.out.println(countOccurrencesAnagrams(text,pat));
+	}
+}
