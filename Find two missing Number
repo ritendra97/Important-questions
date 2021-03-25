@@ -1,0 +1,49 @@
+import java.util.*;
+public class Solution 
+{
+	public static void findmissingNumber(int arr[])
+	{
+		// get the length of the array.
+		int n = arr.length+2;
+		int sum =0;
+		
+		for(int i=0;i<arr.length;i++)
+		{
+			sum+=arr[i];
+		}
+		
+		//now get two missing numbes sum
+		
+		int missing_sum = n*(n+1)/2-sum;
+		int average_sum = missing_sum/2;
+		
+		int left_sum =0;
+		int right_sum =0;
+		
+		for(int i=0;i<arr.length;i++)
+		{
+			if(arr[i]<=average_sum)
+			{
+				left_sum+=arr[i];
+			}
+			else
+			{
+				right_sum+=arr[i];
+			}
+		}
+		
+		int till_average_sum = average_sum*(average_sum+1)/2;
+		int after_average_sum = n*(n+1)/2-till_average_sum;
+				
+		System.out.println("Missing numbers is: ");
+		
+		System.out.println(till_average_sum-left_sum);
+		System.out.println(after_average_sum-right_sum);
+	}
+	public static void main(String[] args) 
+	{
+		int arr[] = {1,3,5,6};
+		
+		findmissingNumber(arr);
+	}
+}
