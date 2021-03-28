@@ -1,0 +1,76 @@
+//Best Time to buy and sell when two transaction alowed
+import java.util.*;
+public class Solution 
+{
+	public static int BestSellTime(int prices[])
+	{
+		int Best_buying_day_left = Integer.MAX_VALUE;
+		int Best_Selling_On_day_left = prices[0];
+        int dpl[] = new int[prices.length];		
+		
+		for(int i=1;i<prices.length;i++)
+		{
+			if(Best_buying_day_left>prices[i])
+				Best_buying_day_left=prices[i];
+			
+			Best_Selling_On_day_left = prices[i]-Best_buying_day_left;
+			
+			if(dpl[i-1]<Best_Selling_On_day_left)
+			{
+				dpl[i] = Best_Selling_On_day_left;
+			}
+			else
+			{
+				dpl[i] = dpl[i-1];
+			}
+			
+		}
+		int Best_selling_price_right=Integer.MIN_VALUE;
+		int Best_Selling_On_day_right = prices[prices.length-1];
+		int dpr[] = new int[prices.length];
+		
+		for(int i=prices.length-2;i>=0;i--)
+		{
+		   if(Best_selling_price_right<prices[i])
+			   Best_selling_price_right=prices[i];
+		   
+		   Best_Selling_On_day_right = Best_selling_price_right-prices[i];
+		   
+		   if(dpr[i+1]< Best_Selling_On_day_right)
+			{
+				dpr[i] =  Best_Selling_On_day_right;
+			}
+			else
+			{
+				dpr[i] = dpl[i+1];
+			}
+		}
+		
+		int op = 0;
+		
+		for(int i=0;i<prices.length;i++)
+		{
+			if(op<dpl[i]+dpr[i])
+				op=dpl[i]+dpr[i];
+		}
+		
+		return op;
+	}
+	public static void main(String[] args) 
+	{
+		Scanner scn = new Scanner(System.in);
+		
+		System.out.print("Please Enter the size: ");
+		int n = scn.nextInt();
+		
+		int prices[] = new int[n];
+		
+		for(int i =0;i<n;i++)
+		{
+			prices[i] = scn.nextInt();
+		}
+		
+		System.out.println(BestSellTime(prices));
+	}
+
+}
