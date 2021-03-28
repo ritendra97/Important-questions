@@ -1,4 +1,40 @@
 //Best Time to Buy and Sell Stock with Transaction Fee
+// this code is simple because u written it
+import java.util.*;
+public class Solution 
+{
+	public static int BestSellTime(int prices[],int Transaction_fee)
+	{
+		int n = prices.length;
+		int bbp=prices[0];
+		int bsp=0;
+		
+		for(int i=1;i<n;i++)
+		{
+			bsp = Math.max(bsp, prices[i]-bbp-Transaction_fee);
+			bbp = Math.min(bbp,prices[i]-bsp);
+		}
+		return bsp;
+	}
+	public static void main(String[] args) 
+	{
+		Scanner scn = new Scanner(System.in);
+		
+		System.out.print("Please Enter the size: ");
+		int n = scn.nextInt();
+		
+		int prices[] = new int[n];
+		
+		for(int i =0;i<n;i++)
+		{
+			prices[i] = scn.nextInt();
+		}
+		
+		System.out.println(BestSellTime(prices,2));
+	}
+
+}
+
 class Solution
 {
     public int maxProfit(int[] prices, int fee) 
