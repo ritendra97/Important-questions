@@ -47,3 +47,59 @@ public class Solution
 
 }
 // Optimized version
+import java.util.*;
+// If transaction is unlimited 
+public class Solution 
+{
+	public static int BestSellTimewithK(int prices[],int k)
+	{
+		int n = prices.length;
+		int dp[][]  = new int[k+1][n+1];
+		
+		for (int i = 0; i <= k; i++)
+            dp[i][0] = 0;
+		
+		for (int j = 0; j <= n; j++)
+	            dp[0][j] = 0;
+		
+		for(int t =1;t<=k;t++)
+		{
+			int max = Integer.MIN_VALUE;
+			for(int d =1;d<n;d++)
+			{ 
+				if((dp[t-1][d-1]-prices[d-1]>max))
+				{
+					max=dp[t-1][d-1]-prices[d-1];
+				}
+				if(max+prices[d]>dp[t][d-1])
+				{
+					
+					dp[t][d]=max+prices[d];
+				}
+				else
+				{
+					dp[t][d]=dp[t][d-1];
+				}
+			}
+			
+		}
+		return dp[k][n-1];
+	}
+	public static void main(String[] args) 
+	{
+		Scanner scn = new Scanner(System.in);
+		
+		System.out.print("Please Enter the size: ");
+		int n = scn.nextInt();
+		
+		int prices[] = new int[n];
+		
+		for(int i =0;i<n;i++)
+		{
+			prices[i] = scn.nextInt();
+		}
+		
+		System.out.println(BestSellTimewithK(prices,1));
+	}
+
+}
