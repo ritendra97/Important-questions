@@ -1,4 +1,44 @@
 //Best Time to Buy and Sell Stock with Cooldown
+//If transaction is unlimited 
+
+import java.util.*;
+// If transaction is unlimited 
+public class Solution 
+{
+	public static int BestSellTime(int prices[])
+	{
+		int n = prices.length;
+		int bbp=prices[0];
+		int bsp=0;
+		int cooldown=0;
+		
+		for(int i=1;i<n;i++)
+		{
+			cooldown = Math.max(bsp, cooldown);
+			bsp = Math.max(bsp, prices[i]-bbp);
+			bbp = Math.min(bbp,prices[i]-cooldown);
+		}
+		return bsp;
+	}
+	public static void main(String[] args) 
+	{
+		Scanner scn = new Scanner(System.in);
+		
+		System.out.print("Please Enter the size: ");
+		int n = scn.nextInt();
+		
+		int prices[] = new int[n];
+		
+		for(int i =0;i<n;i++)
+		{
+			prices[i] = scn.nextInt();
+		}
+		
+		System.out.println(BestSellTime(prices));
+	}
+
+}
+
 class Solution 
 {
     public int maxProfit(int[] prices) 
