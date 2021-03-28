@@ -1,6 +1,7 @@
 //Best Time to Buy and Sell Stock with Cooldown
-//If transaction is unlimited 
-
+//If transaction is unlimited here in below question u are buying and selling stock without any restriction like not selling without selling first it is working with 
+// gfg question but i guess that is not correct.
+// next solution is perfect because there you are not selling before buying have a look.
 import java.util.*;
 // If transaction is unlimited 
 public class Solution 
@@ -19,6 +20,72 @@ public class Solution
 			bbp = Math.min(bbp,prices[i]-cooldown);
 		}
 		return bsp;
+	}
+	public static void main(String[] args) 
+	{
+		Scanner scn = new Scanner(System.in);
+		
+		System.out.print("Please Enter the size: ");
+		int n = scn.nextInt();
+		
+		int prices[] = new int[n];
+		
+		for(int i =0;i<n;i++)
+		{
+			prices[i] = scn.nextInt();
+		}
+		
+		System.out.println(BestSellTime(prices));
+	}
+
+}
+
+import java.util.*;
+// If transaction is unlimited 
+public class Solution 
+{
+	public static int BestSellTime(int prices[])
+	{
+		int obsp = -prices[0];
+		int ossp =  0;
+		int ocsp = 0;
+		
+		for(int i=1;i<prices.length;i++)
+		{
+			int nbsp=0;
+			int nssp=0;
+			int ncsp=0;
+			
+			if(ocsp-prices[i]>obsp)
+			{
+				nbsp = ocsp-prices[i];
+			}
+			else
+			{
+				nbsp = obsp;
+			}
+			if(ossp+prices[i]>ossp)
+			{
+				nssp = obsp+prices[i];
+			}
+			else
+			{
+				nssp = ossp;
+			}
+			
+			if(ossp>ocsp)
+			{
+				ncsp=ossp;
+			}
+			else
+			{
+				ncsp=ocsp;
+			}
+			obsp= nbsp;
+			ossp= nssp;
+			ocsp= ncsp;
+		}
+		return ossp;
 	}
 	public static void main(String[] args) 
 	{
