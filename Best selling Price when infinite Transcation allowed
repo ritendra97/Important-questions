@@ -1,0 +1,41 @@
+//Best selling Price when infinite Transaction allowed
+import java.util.*;
+public class Solution 
+{
+	public static int BestSellTime(int prices[])
+	{
+		int sp=0;
+		int bp=0;
+		int profit=0;
+				
+		for(int i=1;i<prices.length;i++)
+		{
+			if(prices[i]>=prices[i-1])
+				sp++;
+			else if(sp>prices[i])
+			{
+				profit+= prices[sp]-prices[bp];
+				sp=bp=i;
+			}
+		}
+		profit+= prices[sp]-prices[bp];
+		return profit;
+	}
+	public static void main(String[] args) 
+	{
+		Scanner scn = new Scanner(System.in);
+		
+		System.out.print("Please Enter the size: ");
+		int n = scn.nextInt();
+		
+		int prices[] = new int[n];
+		
+		for(int i =0;i<n;i++)
+		{
+			prices[i] = scn.nextInt();
+		}
+		
+		System.out.println(BestSellTime(prices));
+	}
+
+}
