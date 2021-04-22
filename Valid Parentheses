@@ -1,0 +1,131 @@
+// o(n3) complexity
+import java.util.*;
+public class StringPractice {
+
+    public static  boolean longestValidParenthesesUtil(String s) {
+        
+    	Stack<Character> st = new Stack<Character>();
+    	
+    	for(int i=0;i<s.length();i++) {
+    		
+    		char ch = s.charAt(i);
+    		if(ch=='(') {
+    			st.push(ch);
+    		}
+    		else if(!st.isEmpty() && ch==')') {
+    			if(st.peek()=='(') {
+    				st.pop();
+    			}
+    		}else
+    			return false;
+    	}
+    	return st.isEmpty();
+    }
+    public static int longestValidParentheses(String s) {
+        
+    	int max_length=0;
+    	for(int i=0;i<s.length();i++) {
+    		
+    		for(int j=i+2;j<=s.length();j+=2) {
+    			
+    			if(longestValidParenthesesUtil(s.substring(i,j)))
+    			{
+    				int len = j-i;
+    				if(len>max_length)
+    			    	max_length = j-i;
+    			}
+    		}
+    	}
+    	return max_length;
+    }
+	public static void main(String[] args) {
+	
+		String s = "(()";
+		System.out.println(longestValidParentheses(s));
+	}
+
+}
+//O(n) -> Time;
+//O(n) -> Space;
+import java.util.*;
+public class StringPractice {
+	
+    public static int longestValidParentheses(String s) {
+        
+    	int max_length=0;
+    	Stack<Integer> st = new Stack<Integer>();
+    	st.push(-1);
+    	for(int i=0;i<s.length();i++) {
+    		char ch = s.charAt(i);
+    		if(ch=='(') {
+    			st.push(i);
+    		}else {
+    			st.pop();
+    			if(st.isEmpty()) {
+    				st.push(i);
+    			}else {
+    				max_length = Math.max(max_length, i-st.peek());
+    			}
+    		}
+    	}
+    	return max_length;
+    }
+	public static void main(String[] args) {
+	
+		String s = "((())";
+		System.out.println(longestValidParentheses(s));
+	}
+
+}
+//O(n)->Time
+//O(1)->Space
+import java.util.*;
+public class StringPractice {
+	
+    public static int longestValidParentheses(String s) {
+        
+    	int left=0;
+    	int right=0;
+    	int max_length=0;
+    	for(int i=0;i<s.length();i++) {
+    		
+    		char ch = s.charAt(i);
+    		if(ch=='(') {
+    			left++;
+    		}else {
+    			right++;
+    		}
+    		if(left==right) {
+    			max_length=Math.max(max_length, right*2);
+    		}
+    		else if(right>=left) {
+    			left=right=0;
+    		}
+    	}
+    	
+    	left=right=0;
+    	
+        for(int i=s.length()-1;i>=0;i--) {
+    		
+    		char ch = s.charAt(i);
+    		if(ch=='(') {
+    			left++;
+    		}else {
+    			right++;
+    		}
+    		if(left==right) {
+    			max_length=Math.max(max_length, left*2);
+    		}
+    		else if(left>=right) {
+    			left=right=0;
+    		}
+    	}
+        return max_length;
+    }
+	public static void main(String[] args) {
+	
+		String s = "((())";
+		System.out.println(longestValidParentheses(s));
+	}
+
+}
