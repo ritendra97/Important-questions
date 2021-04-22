@@ -1,0 +1,65 @@
+//Generate Parentheses
+// Complexity is 2^2n*n
+// same space
+//Time Complexity : O(2^{2n}n)O(2 
+2n
+ n). For each of 2^{2n}2 
+2n
+  sequences, we need to create and validate the sequence, which takes O(n)O(n) work.
+
+Space Complexity : O(2^{2n}n)O(2 
+2n
+ n). Naively, every sequence could be valid. See Approach 3 for development of a tighter asymptotic bound.
+
+import java.util.*;
+public class StringPractice {
+	
+	public static void generateAllUtil(char character[],List<String> combination,int pos) {
+		
+		if(character.length==pos) {
+			if(isValid(character)) {
+				combination.add(new String(character));
+			return ;
+			
+			}
+		}else {
+			character[pos]='(';
+			generateAllUtil(character,combination,pos+1);
+			character[pos]=')';
+			generateAllUtil(character,combination,pos+1);
+		}
+	}
+	public static boolean isValid(char character[]) {
+	
+		int balance=0;
+		for(int i=0;i<character.length;i++) {
+			if(character[i]=='(')
+				balance++;
+			else
+			    balance--;	
+			
+			if(balance<0)
+				return false;
+		}
+		return balance==0;
+	}
+    public static List<String> generateParenthesis(int n) {
+        
+    	List<String> combination = new ArrayList<String>();
+    	
+    	char character[]= new char[2*n];
+    	
+    	generateAllUtil(character,combination,0);
+    	
+    	return combination;
+    }
+	public static void main(String[] args) {
+		
+		System.out.println(generateParenthesis(3));
+	}
+
+}
+// Our complexity analysis rests on understanding how many elements there are in generateParenthesis(n). 
+//This analysis is outside the scope of this article, but it turns out this is the n-th Catalan number
+//o(4^n/sqrt n) Each valid sequence has at most n steps during the backtracking procedure.
+Space -> Same complexity
