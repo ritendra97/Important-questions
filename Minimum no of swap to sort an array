@@ -1,0 +1,58 @@
+import java.util.*;
+class pair
+{
+	int value;
+	int index;
+	pair(int i,int j)
+	{
+		this.value=i;
+		this.index=j;
+	}
+	pair()
+	{};
+}
+public class Graph 
+{	
+	public static int swap(int arr[])
+	{
+		int cycle_count =0;
+		int ans=0;
+		pair p[] = new pair[arr.length];
+		boolean visited[] = new boolean[arr.length];
+		
+		for(int i=0;i<arr.length;i++)
+		{
+			p[i] = new pair(arr[i],i);
+		}
+		
+		Arrays.sort(p, new Comparator<pair>() {
+			public int compare(pair p1,pair p2) {
+				return p1.value-p2.value;
+			}
+		});
+		
+		for(int i=0;i<arr.length;i++)
+		{
+			if(visited[i]==true || p[i].index==i)
+				continue;
+			
+			cycle_count=0;
+			int j=i;
+			
+			while(!visited[j]) {
+				visited[j]=true;
+				j = p[j].index;
+				cycle_count++;
+			}
+			if(cycle_count>0)
+				ans+=(cycle_count-1);
+		}
+		return ans;
+	}
+	public static void main(String[] args) 
+	{
+		int arr[] = {1, 5, 4, 3, 2};
+		
+		System.out.println(swap(arr));
+	}
+}
