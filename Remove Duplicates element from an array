@@ -1,0 +1,52 @@
+//Remove Duplicates element from an array
+// Onlogn Time
+import java.util.*;
+public class Solution {
+	public static int[] removeDuplicate(int arr[],int n) {
+		
+		int size=0;
+
+		Arrays.sort(arr);
+		for(int i=1;i<n;i++) {
+			
+			if(arr[size]!=arr[i]) {
+				arr[++size]=arr[i];
+			}else 
+				continue;
+		}	
+		return Arrays.copyOf(arr, size+1);
+	}
+	public static void main(String[] args) {
+
+		int arr[]= {5,2,6,8,6,7,5,2,8,3,3,3,3,3,33,33,3,3,3,3,3,3,3,33};
+		
+		int ans[] = removeDuplicate(arr,arr.length);
+		
+		int k=0;
+		for(int i:ans) {
+			System.out.println(i+" -> "+k++);
+		}
+	}
+
+}
+// O(n) TC;
+// O(n) SC;
+import java.util.*;
+public class Solution {
+	public static void removeDuplicate(int arr[],int n) {
+		
+		LinkedHashSet<Integer> ans = new LinkedHashSet<Integer>();
+		for(int i=0;i<n;i++) {
+			ans.add(arr[i]);
+		}
+		
+		System.out.println(ans);
+	}
+	public static void main(String[] args) {
+
+		int arr[]= {5,2,6,8,6,7,5,2,8,3,3,3,3,3,33,33,3,3,3,3,3,3,3,33};
+		
+		removeDuplicate(arr,arr.length);
+	}
+
+}
