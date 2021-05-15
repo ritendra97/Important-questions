@@ -1,0 +1,42 @@
+//Longest Substring with At Least K Repeating Characters
+// TC->O(n^2)
+class Solution {
+    
+    public boolean isValid(int count[],int start,int end,int k) {
+        
+        int countchar = 0;
+        int countAtleastk=0;
+        for(int c:count){
+            if(c>0){
+                countchar++;
+            }if(c>=k){
+                countAtleastk++;
+            }
+        }
+        return countchar==countAtleastk;
+    }
+    public int longestSubstring(String s, int k) {
+       
+        
+        if(s==null || s.isEmpty() || k>s.length())
+            return 0;
+        
+        int count[] = new int[26];
+        int result = 0;
+        for(int i=0;i<s.length();i++){
+            Arrays.fill(count, 0);
+            for(int j=i;j<s.length();j++){
+                
+                char ch = s.charAt(j);
+                count[ch-'a']++;
+                
+                if(isValid(count,i,j,k)){
+                    result= Math.max(result,j-i+1);
+                }
+            }
+        }
+        return result;
+    }
+}
+
+//TC->O(n)
