@@ -1,0 +1,48 @@
+//	Collecting Wood
+import java.util.*;
+//Value to be subtracted from array elements to make sum of all elements equals K
+class Solution {	
+	
+	public static int collect_wood(int arr[],int m) {
+		
+		int sum=0;
+		for(int i=0;i<arr.length;i++) {
+			if(arr[i]-m<0)
+				break;
+			sum+=arr[i]-m;
+		}
+		return sum;
+	}
+	public static int collective_wood(int arr[],int n,int k) {
+		
+		Arrays.sort(arr);
+		
+		int low = 0;
+		int high = arr[n-1];
+		
+		while(low<=high) {
+			
+			int mid = low +(high-low)/2;
+			
+			int collective = collect_wood(arr,mid);
+			
+			
+			if(collective==k)
+				return mid;
+			
+			if(collective>k)
+				low=mid+1;
+			else
+				high = mid-1;
+		}
+		return -1;
+	}
+    public static void main(String[] args) {
+    	
+    	int arr[] = { 1, 2,1,2 };
+    	int n = arr.length;
+        int K = 2;
+        
+        System.out.println(collective_wood(arr, n, K));
+    }
+}
