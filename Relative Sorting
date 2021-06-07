@@ -1,0 +1,82 @@
+//Relative Sorting
+// O(n^2)
+import java.util.*;
+public class Solution {
+	
+	public static int[] relativeSortArray(int[] arr1, int[] arr2) {
+		
+		int output[] = new int[arr1.length];
+		int k =0;
+		
+		for(int i=0;i<arr2.length;i++) {
+			
+			for(int j = 0;j<arr1.length;j++) {
+				if(arr2[i]==arr1[j]) {
+					output[k++] = arr1[j];
+					arr1[j]*=-1;
+				}
+			}
+		}
+		
+		Arrays.sort(arr1);
+		for(int i =0;i<arr1.length;i++) {
+			if(arr1[i]>0) {
+				output[k++] = arr1[i];
+			}
+		}
+		return output;
+	}
+	public static void main(String[] args) {
+		
+		int arr1[] = {2, 1, 2, 5, 7, 1, 9, 3, 6, 8, 8}, arr2[] = {2, 1, 8, 3};
+		
+		int ans[] = relativeSortArray( arr1, arr2);
+		
+		for(int i:ans) {
+			System.out.print(i+" ");
+		}
+	}
+
+}
+// O(n)
+
+import java.util.*;
+//[2,2,2,1,4,3,3,9,6,7,19]
+public class Solution {
+	
+	public static int[] relativeSortArray(int[] arr1, int[] arr2) {
+		
+        int[] map=new int[1001];
+        
+        for(int i:arr1){
+            map[i]++;
+        }
+        
+        int x=0;
+        for(int z:arr2) {
+        	while(map[z]>0) {
+        		arr1[x++]=z;
+        		map[z]--;
+        	}
+        }
+        
+        for(int i=0;i<map.length;i++) {
+        	while(map[i]>0) {
+        		arr1[x++]=i;
+        		map[i]--;
+        	}
+        }
+        return arr1;
+    }
+	public static void main(String[] args) {
+		
+		int arr1[] = {2, 1, 2, 5, 7, 1, 9, 3, 6, 8, 8}, arr2[] = {2, 1, 8, 3};
+		
+		int ans[] = relativeSortArray( arr1, arr2);
+		
+		for(int i:ans) {
+			System.out.print(i+" ");
+		}
+	}
+
+}
