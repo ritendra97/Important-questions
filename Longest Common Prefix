@@ -1,0 +1,53 @@
+//Longest Common Prefix
+import java.util.*;
+//Longest Common Prefix using Word by Word Matching
+public class Solution {
+	
+	static class TrieNode
+	{
+	    boolean isEnd = false;   
+	    Map<Character, TrieNode> children = new HashMap<>();
+	}
+	    
+	public static void insert(TrieNode head, String str) {
+			
+		TrieNode node = head;
+		for(int i=0;i<str.length();i++) {
+			
+			char index = str.charAt(i);
+			
+			node.children.putIfAbsent(index, new TrieNode());
+			
+			node = node.children.get(index);
+		}
+		node.isEnd = true;
+	}
+	
+	public static String find_prefix(String arr[]) {
+		
+		TrieNode head = new TrieNode();
+		
+		for(int i=0;i<arr.length;i++) {
+			insert(head, arr[i]);
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		TrieNode curr = head;
+		
+		while(curr!=null && !curr.isEnd && (curr.children.size()==1)) {
+			
+			for(var entry:curr.children.entrySet()) {
+			
+				sb.append(entry.getKey());
+				curr = entry.getValue();
+			}
+		}
+		return sb.toString();
+	}
+	public static void main(String[] args)  {
+		
+		String arr[] = {"geeksforgeeks", "geeks", "geek", "geezer"};
+		int n = arr.length;
+		System.out.print(find_prefix(arr));
+	}
+}
