@@ -1,0 +1,27 @@
+class Solution{
+    static String lookandsay(int n)
+    {
+        if(n==1)
+    		return "1";
+    	String ans[] = new String[n];
+    	ans[0] = "1";
+    	ans[1] = "11";
+    	
+    	for(int i=2;i<n;i++) {
+    		String pre = ans[i-1];
+    		String temp ="";
+    		
+    		for(int j=0;j<pre.length();j++) {
+    			int count=1;
+    			
+    			while(j<pre.length()-1 && pre.charAt(j)==pre.charAt(j+1)) {
+    				count++;
+    				j++;
+    			}
+    			temp+=Integer.toString(count)+pre.charAt(j); 
+    		}
+    		ans[i] = temp;
+    	}
+    	return ans[n-1];
+    }
+}
