@@ -1,0 +1,58 @@
+//Restrictive Candy Crush
+import java.util.*;
+//Subarrays with sum K 
+class Solution {
+	
+	static class pair{
+		char c;
+		int count;
+		
+		pair(char c,int ctr){
+			this.c =c;
+			this.count = ctr;
+		}
+		
+	}
+    public static String reduced_String(int k, String s) {
+    	
+    	String result = "";
+    	Stack<pair> st = new Stack<pair>();
+    	for(int i=0;i<s.length();i++) {
+    		
+    		char ch = s.charAt(i);
+    		if(st.size()==0) {
+    			st.push(new pair(ch,1));
+    			continue;
+    		}
+    		
+    		if(st.peek().c==ch) {
+    			
+    			pair p = st.peek();
+    			st.pop();
+    			p.count++;
+    			if(p.count==k)
+    				continue;
+    			else
+    				st.push(p);
+    			
+    		}else {
+    			st.push(new pair(ch,1));
+    		}
+    	}
+    	String ans = "";
+        while (st.size() > 0) {
+            char c = st.peek().c;
+            int cnt = st.peek().count;
+            while (cnt-- > 0)
+                ans = c + ans;
+            st.pop();
+        }
+        return ans;
+    }
+    public static void main(String[] args) {
+      
+    	String exp = "geegsforgeeeks";
+    	int k = 2;
+        System.out.println(reduced_String(k,exp));
+    }
+}
