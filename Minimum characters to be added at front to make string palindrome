@@ -1,0 +1,48 @@
+//Minimum characters to be added at front to make string palindrome
+import java.util.*;
+//Recursively print all sentences that can be formed from list of word lists
+
+public class Solution {
+	
+	public static int[] computeLPS(String str) {
+		
+		int lps[] = new int[str.length()];
+		
+		int len=0;
+		int i=1;
+		lps[0]=0;
+		int n = str.length();
+		while(i<n) {
+			if(str.charAt(len)==str.charAt(i)) {
+				len++;
+				lps[i]=len;
+				i++;
+			}else {
+				if(len!=0) {
+					len = lps[len-1];
+				}else {
+					lps[i]=0;
+					i++;
+				}
+			}
+		}
+		return lps;
+	}
+	public static  int solve(String a) 
+    {
+        StringBuilder s=new StringBuilder(a);
+        s=s.reverse();
+        String str=a+s.toString();
+        int[] lps=new int[str.length()];
+        lps = computeLPS(str);
+        for(int i:lps) {
+        	System.out.print(i+" ");
+        }
+        return (a.length()-lps[str.length()-1]);
+    }
+    public static void main(String[] args) {
+    	
+    	String str = "AACECAAAA";
+    	System.out.println(solve(str));
+	}
+}
