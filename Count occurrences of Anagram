@@ -1,4 +1,52 @@
 //Count occurrences of Anagram
+Time Complexity 
+Space Complexity
+
+import java.util.Arrays;
+public class Practice {
+
+	public static boolean isAnagram(String s1, String s2) {
+
+		char str1[] = s1.toCharArray();
+		char str2[] = s2.toCharArray();
+		Arrays.sort(str1);
+		Arrays.sort(str2);
+		
+		String temp1 = String.valueOf(str1);
+		String temp2 = String.valueOf(str2);
+		
+		if (temp1.equals(temp2))
+			return true;
+		else
+			return false;
+	}
+
+	public static int countAnagrams(String text, String word) {
+
+		int count = 0;
+
+		for (int i = 0; i < text.length(); i++) {
+
+			for (int j = 0; j < i; j++) {
+				if (isAnagram(text.substring(j, i + 1), word))
+					count++;
+			}
+		}
+
+		return count;
+	}
+
+	public static void main(String[] args) {
+		String text = "forxxorfxdofr";
+		String word = "for";
+		System.out.print(countAnagrams(text, word));
+	}
+}
+
+Time Complexity 
+Space Complexity
+
+
 import java.util.*;
 public class StringPractice 
 {
@@ -62,5 +110,51 @@ public class StringPractice
 		
 		
 		System.out.println(countOccurrencesAnagrams(text,pat));
+	}
+}
+
+import java.util.Arrays;
+import java.util.HashMap;
+
+public class Practice {
+	
+	
+	public static int countAnagrams(String text, String word) {
+
+		int count = 0;
+		
+		char texts[] = new char[26];
+		char pat[] = new char[26];
+		
+		if(text.length()<word.length() || text.length()<0 || word.length()<0)
+			return 0;
+		
+		for(int i=0;i<word.length();i++) {
+			texts[text.charAt(i)-'a']++;
+			pat[word.charAt(i)-'a']++;
+		}
+		
+		
+		int j = word.length();
+		
+		for(;j<text.length();j++) {
+			
+			if(Arrays.equals(texts,pat))
+				count++;
+			
+			texts[text.charAt(j)-'a']++;
+			texts[text.charAt(j-word.length())-'a']--;
+			
+		}
+		
+		if(Arrays.equals(texts,pat))
+			count++;
+		return count;
+	}
+
+	public static void main(String[] args) {
+		String text = "forxxorfxdofr";
+		String word = "for";
+		System.out.print(countAnagrams(text, word));
 	}
 }
