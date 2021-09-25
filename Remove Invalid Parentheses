@@ -1,0 +1,80 @@
+import java.util.*;
+
+public class StackPractice {
+
+	public static int invalidexpression(String s) {
+
+		Stack<Character> st = new Stack<Character>();
+
+		for (int i = 0; i < s.length(); i++) {
+
+			char ch = s.charAt(i);
+			if (ch == '(')
+				st.push(ch);
+			else {
+				if (!st.isEmpty() && st.peek() == '(') {
+					st.pop();
+				} else if (st.isEmpty() || st.peek() == ')') {
+					st.push(ch);
+				}
+			}
+		}
+
+		return st.size();
+	}
+
+	public static boolean isValid(String s) {
+
+		int balance = 0;
+
+		for (int i = 0; i < s.length(); i++) {
+			char ch = s.charAt(i);
+
+			if (ch == '(')
+				balance++;
+			else
+				balance--;
+		}
+
+		if (balance < 0)
+			return false;
+
+		return true;
+	}
+
+	public static void removeInvalidParenthesesUtil(String s, int mremv, ArrayList<String> curr) {
+
+		if(mremv==0) {
+			int mremvn = invalidexpression(s);
+			if(mremvn==0 && !curr.contains(s) && isValid(s)) {
+				curr.add(s);
+			}
+			return;
+		}
+
+		for (int i = 0; i < s.length(); i++) {
+
+			String left = s.substring(0, i);
+			String right = s.substring(i + 1);
+			String total = left + right;
+
+			removeInvalidParenthesesUtil(total, mremv-1, curr);
+		}
+	}
+
+	public static ArrayList<String> removeInvalidParentheses(String s) {
+
+		ArrayList<String> curr = new ArrayList<String>();
+		int mremv = invalidexpression(s);
+		removeInvalidParenthesesUtil(s,mremv,curr);
+		
+		return curr;
+	}
+
+	public static void main(String[] args) {
+
+		String s = "()())()";
+		System.out.println(removeInvalidParentheses(s));
+	}
+
+}
